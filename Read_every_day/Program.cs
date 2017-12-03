@@ -10,6 +10,7 @@ namespace Read_every_day
     {
         static void Main(string[] args)
         {
+            Console.WriteLine("Hello our telegram bot user! ");
         }
     }
 }
