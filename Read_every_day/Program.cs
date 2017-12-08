@@ -7,6 +7,10 @@ using System.Threading;
 using System.Net;
 using System.Collections.Specialized;
 using System.Threading.Tasks;
+using Telegram.Bot;
+using TelegramBot.ResponseObjects;
+using TelegramBot;
+using Newtonsoft.Json.Serialization;
 
 namespace Read_every_day
 {
@@ -21,8 +25,6 @@ namespace Read_every_day
                 GetUpdates();
                 Thread.Sleep(1000);
             }
-            Console.WriteLine("Hello our telegram bot user! ");
-            Console.WriteLine("Check the repository");
         }
         static void GetUpdates()
         {
@@ -43,10 +45,12 @@ namespace Read_every_day
         {
             using (var webClient = new WebClient())
             {
-                var pars = new NameValueCollection();
-                pars.Add("Text", message);
-                pars.Add("chat_id", chatid.ToString());
-                webClient.UploadValues("https://api.telegram.org/bot"+Token+"/sendMessage", pars)
+                var pars = new NameValueCollection
+                {
+                    { "text", message },
+                    { "chat_id", chatid.ToString() }
+                };
+                webClient.UploadValues("https://api.telegram.org/bot" + Token + "/sendMessage", pars);
             }
         }
     }

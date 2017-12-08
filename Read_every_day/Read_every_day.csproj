@@ -124,11 +124,11 @@
   <ItemGroup>
     <Compile Include="AppSettigs.cs" />
     <Compile Include="Bot.cs" />
+    <Compile Include="Class1.cs" />
     <Compile Include="command.cs" />
     <Compile Include="HelloCommand.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repository.cs" />
     <Compile Include="simpleJSON.cs" />
   </ItemGroup>
   <ItemGroup>

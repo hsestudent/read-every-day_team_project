@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace Read_every_day
 {
-    class Repository
+   public  class Class1
     {
-        private string token = "";
+        public static string Token = @"470503687:AAEr92OmdRUB223xhuILOYwekP0kyrMksh0";
+        public static int LastUpdateId = 0;
 
     }
 }

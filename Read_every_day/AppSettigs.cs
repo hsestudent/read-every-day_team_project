@@ -12,7 +12,7 @@ namespace Read_every_day
 
         public static string Name { get; set; } = "Read every day_bot";
 
-        public static string token { get; set; } = "470503687:AAEr92OmdRUB223xhuILOYwekP0kyrMksh0";
+        public static string Token { get; set; } = "470503687:AAEr92OmdRUB223xhuILOYwekP0kyrMksh0";
 
     }
 }

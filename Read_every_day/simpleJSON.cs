@@ -218,8 +218,7 @@ namespace SimpleJSON
         {
             get
             {
-                double v = 0.0;
-                if (double.TryParse(Value, out v))
+                if (double.TryParse(Value, out double v))
                     return v;
                 return 0.0;
             }
@@ -245,8 +244,7 @@ namespace SimpleJSON
         {
             get
             {
-                bool v = false;
-                if (bool.TryParse(Value, out v))
+                if (bool.TryParse(Value, out bool v))
                     return v;
                 return !string.IsNullOrEmpty(Value);
             }
@@ -283,7 +281,7 @@ namespace SimpleJSON
         }
         public static implicit operator string(JSONNode d)
         {
-            return (d == null) ? null : d.Value;
+            return d?.Value;
         }
 
         public static implicit operator JSONNode(double n)
@@ -331,8 +329,8 @@ namespace SimpleJSON
         {
             if (ReferenceEquals(a, b))
                 return true;
-            bool aIsNull = a is JSONNull || ReferenceEquals(a, null) || a is JSONLazyCreator;
-            bool bIsNull = b is JSONNull || ReferenceEquals(b, null) || b is JSONLazyCreator;
+            bool aIsNull = a is JSONNull || a is null || a is JSONLazyCreator;
+            bool bIsNull = b is JSONNull || b is null || b is JSONLazyCreator;
             if (aIsNull && bIsNull)
                 return true;
             return !aIsNull && a.Equals(b);
@@ -427,8 +425,7 @@ namespace SimpleJSON
                 ctx.Add(tokenName, null);
             else
             {
-                double val;
-                if (double.TryParse(token, out val))
+                if (double.TryParse(token, out double val))
                     ctx.Add(tokenName, val);
                 else
                     ctx.Add(tokenName, token);
@@ -885,8 +882,7 @@ namespace SimpleJSON
         {
             if (base.Equals(obj))
                 return true;
-            string s = obj as string;
-            if (s != null)
+            if (obj is string s)
                 return m_Data == s;
             JSONString s2 = obj as JSONString;
             if (s2 != null)
@@ -913,8 +909,7 @@ namespace SimpleJSON
             get { return m_Data.ToString(); }
             set
             {
-                double v;
-                if (double.TryParse(value, out v))
+                if (double.TryParse(value, out double v))
                     m_Data = v;
             }
         }
@@ -981,8 +976,7 @@ namespace SimpleJSON
             get { return m_Data.ToString(); }
             set
             {
-                bool v;
-                if (bool.TryParse(value, out v))
+                if (bool.TryParse(value, out bool v))
                     m_Data = v;
             }
         }

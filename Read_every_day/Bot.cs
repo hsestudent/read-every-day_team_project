@@ -13,7 +13,10 @@ namespace Read_every_day
         private static TelegramBotClient  client;
         private static List<Command> commandsList;
 
-        public static IReadOnlyList<Command> Commands { get => commandsList.AsReadOnly(); }
+        public static IReadOnlyList<Command> Commands
+        {
+            get => commandsList.AsReadOnly();
+        }
 
         public static async Task<TelegramBotClient> Get()
         {
@@ -21,10 +24,12 @@ namespace Read_every_day
             {
                 return client;
             }
-            commandsList = new List<Command>();
-            commandsList.Add(new HelloCommand());
+            commandsList = new List<Command>
+            {
+                new HelloCommand()
+            };
             //others command initialization;
-            client = new TelegramBotClient(AppSettings.token);
+            client = new TelegramBotClient(AppSettings.Token);
             await client.SetWebhookAsync("");
             return client;
         }
