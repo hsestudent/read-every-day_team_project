@@ -11,13 +11,13 @@ using Telegram.Bot;
 using TelegramBot.ResponseObjects;
 using TelegramBot;
 using Newtonsoft.Json.Serialization;
+using Google.Apis.Services;
 
 namespace Read_every_day
 {
     class Program
     {
-        public static string Token = @"470503687:AAEr92OmdRUB223xhuILOYwekP0kyrMksh0";
-        public static int LastUpdateId = 0;
+        private static Google.Apis.Services.BaseClientService client;
         static void Main(string[] args)
         {
             while (true)
@@ -30,13 +30,13 @@ namespace Read_every_day
         {
             using (var webClient = new WebClient())
             {
-                Console.WriteLine("Запрос обновления (0)", LastUpdateId+1);
-                string response = webClient.DownloadString("https://api.telegram.org/bot" + Token + "/getUpdates" + "?offset=" + (LastUpdateId + 1));
+                Console.WriteLine("Запрос обновления (0)", AppSettings.LastUpdateId + 1);
+                string response = webClient.DownloadString("https://api.telegram.org/bot" + AppSettings.Token + "/getUpdates" + "?offset=" + (AppSettings.LastUpdateId + 1));
                 var N = JSON.Parse(response);
                 foreach (JSONNode r in N["result"].AsArray)
                 {
-                    LastUpdateId = r["update_id"].AsInt;
-                    Console.WriteLine("Пришло сообщение: (0)",r["message"]["text"]);
+                    AppSettings.LastUpdateId = r["update_id"].AsInt;
+                    Console.WriteLine("Пришло сообщение: (0)", r["message"]["text"]);
                     SendMessage("Ща бы к сессии готовиться...", r["message"]["chat"]["id"].AsInt);
                 }
             }
@@ -50,8 +50,22 @@ namespace Read_every_day
                     { "text", message },
                     { "chat_id", chatid.ToString() }
                 };
-                webClient.UploadValues("https://api.telegram.org/bot" + Token + "/sendMessage", pars);
+                webClient.UploadValues("https://api.telegram.org/bot" + AppSettings.Token + "/sendMessage", pars);
             }
         }
+
+        string query = "Your query";
+
+        //var svc = new Google.Apis.CustomSearch.v1.CustomsearchService(new BaseClientService.Initializer { ApiKey = AppSettings.Key_google });
+        //var listRequest = svc.Cse.List(query);
+
+        //listRequest.Cx = cx;
+        //    var search = listRequest.Fetch();
+
+        //    foreach (var result in search.Items)
+        //    {
+        //        Response.Output.WriteLine("Title: {0}", result.Title);
+        //        Response.Output.WriteLine("Link: {0}", result.Link);
+        //    }
     }
 }
