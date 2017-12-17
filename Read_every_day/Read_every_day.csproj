@@ -131,12 +131,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Bot.cs" />
     <Compile Include="BotSettings.cs" />
-    <Compile Include="command.cs" />
     <Compile Include="DataResult.cs" />
     <Compile Include="GoogleSettings.cs" />
-    <Compile Include="HelloCommand.cs" />
     <Compile Include="Item.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

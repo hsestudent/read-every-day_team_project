@@ -19,7 +19,7 @@ namespace Read_every_day
         private const string Name = "Read every day_bot";
         private const string Token = "470503687:AAEr92OmdRUB223xhuILOYwekP0kyrMksh0";
         private static int LastUpdateId = 0;
-        string answer = "";
+       // private static string answer = "";
 
         public static void GetUpdates()
         {
@@ -32,8 +32,14 @@ namespace Read_every_day
                 {
                     LastUpdateId = r["update_id"].AsInt;
                     Console.WriteLine("Пришло сообщение: {0}", r["message"]["text"]);
-                   // answer =  GoogleSettings.GetResult(r["message"]["text"]);
-                    SendMessage("Ща бы к сессии готовиться...", r["message"]["chat"]["id"].AsInt);
+
+                    var SearchResult = GoogleSettings.GetResult(r["message"]["text"]);
+
+                    if (SearchResult != null)
+                    {
+                        SendMessage("Вот результат:", r["message"]["chat"]["id"].AsInt);
+                        //SendMessage(SearchResult.Item.Link, r["message"]["chat"]["id"].AsInt);
+                    }               
                 }
             }
         }
