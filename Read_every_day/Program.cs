@@ -17,44 +17,19 @@ namespace Read_every_day
 {
     class Program
     {
-        private static Google.Apis.Services.BaseClientService client;
+        //private static Google.Apis.Services.BaseClientService client;
         static void Main(string[] args)
         {
             while (true)
             {
-                GetUpdates();
+                BotSettings.GetUpdates();
                 Thread.Sleep(1000);
             }
         }
-        static void GetUpdates()
-        {
-            using (var webClient = new WebClient())
-            {
-                Console.WriteLine("Запрос обновления (0)", AppSettings.LastUpdateId + 1);
-                string response = webClient.DownloadString("https://api.telegram.org/bot" + AppSettings.Token + "/getUpdates" + "?offset=" + (AppSettings.LastUpdateId + 1));
-                var N = JSON.Parse(response);
-                foreach (JSONNode r in N["result"].AsArray)
-                {
-                    AppSettings.LastUpdateId = r["update_id"].AsInt;
-                    Console.WriteLine("Пришло сообщение: (0)", r["message"]["text"]);
-                    SendMessage("Ща бы к сессии готовиться...", r["message"]["chat"]["id"].AsInt);
-                }
-            }
-        }
-        static void SendMessage(string message, int chatid)
-        {
-            using (var webClient = new WebClient())
-            {
-                var pars = new NameValueCollection
-                {
-                    { "text", message },
-                    { "chat_id", chatid.ToString() }
-                };
-                webClient.UploadValues("https://api.telegram.org/bot" + AppSettings.Token + "/sendMessage", pars);
-            }
-        }
 
-        string query = "Your query";
+
+
+        //string query = "Your query";
 
         //var svc = new Google.Apis.CustomSearch.v1.CustomsearchService(new BaseClientService.Initializer { ApiKey = AppSettings.Key_google });
         //var listRequest = svc.Cse.List(query);
